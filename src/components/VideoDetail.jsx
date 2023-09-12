@@ -7,7 +7,20 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Videos, Loader } from "./";
 import { fetchFromAPI } from "../utils/fetchFromApi";
 
+import { useTheme } from '../context/Theme';
+
 const VideoDetail = () => {
+  const { theme, toggleTheme } = useTheme(); // Always call useTheme unconditionally
+
+  const containerStyle = {
+    background: theme === 'light' ? 'white' : 'black',
+  };
+
+  // Define a paragraphStyle object to set paragraph color based on the theme
+  const paragraphStyle = {
+    color: theme === 'light' ? 'black' : 'white',
+  };
+
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   const { id } = useParams();
@@ -20,7 +33,7 @@ const VideoDetail = () => {
       .then((data) => setVideos(data.items))
   }, [id]);
 
-  if(!videoDetail?.snippet) return <Loader />;
+  if (!videoDetail?.snippet) return <Loader />;
 
   const { snippet: { title, channelId, channelTitle }, statistics: { viewCount, likeCount } } = videoDetail;
 
@@ -30,21 +43,21 @@ const VideoDetail = () => {
         <Box flex={1}>
           <Box sx={{ width: "100%", position: "sticky", top: "86px" }}>
             <ReactPlayer url={`https://www.youtube.com/watch?v=${id}`} className="react-player" controls />
-            <Typography color="#fff" variant="h5" fontWeight="bold" p={2}>
+            <Typography  style={paragraphStyle} variant="h5" fontWeight="bold" p={2}>
               {title}
             </Typography>
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#fff" }} py={1} px={2} >
               <Link to={`/channel/${channelId}`}>
-                <Typography variant={{ sm: "subtitle1", md: 'h6' }}  color="#fff" >
+                <Typography variant={{ sm: "subtitle1", md: 'h6' }} color="#fff" style={paragraphStyle}>
                   {channelTitle}
                   <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
                 </Typography>
               </Link>
               <Stack direction="row" gap="20px" alignItems="center">
-                <Typography variant="body1" sx={{ opacity: 0.7 }}>
+                <Typography variant="body1" sx={{ opacity: 0.7 }} style={paragraphStyle}>
                   {parseInt(viewCount).toLocaleString()} views
                 </Typography>
-                <Typography variant="body1" sx={{ opacity: 0.7 }}>
+                <Typography variant="body1" sx={{ opacity: 0.7 }} style={paragraphStyle}>
                   {parseInt(likeCount).toLocaleString()} likes
                 </Typography>
               </Stack>

@@ -5,6 +5,24 @@ body {
   box-sizing: border-box;
 }
 
+.logo
+{
+  color: #B76450;
+  border: 1px pink solid;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 2rem;
+  font-weight: bolder;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+}
+.logo:hover
+{
+  background: #B76450;
+  color: white;
+  border: 1px solid #B76450;
+  transition: 0.3s ease-in-out;
+}
 a {
   text-decoration: none;
   color: black;
@@ -26,7 +44,7 @@ a {
 }
 
 .category-btn:hover {
-  background-color: #FC1503 !important;
+  background-color: #FF8869 !important;
   color: white !important;
 }
 
@@ -60,6 +78,18 @@ a {
   margin: 10px 0px;
   border-radius: 20px;
   transition: all 0.3s ease;
+}
+
+.video-card
+{
+  margin: 0.2rem;
+  border: 1px solid #B76450;
+  border-radius: 20px !important;
+}
+.video-card:hover
+{
+  border: 1px solid black;
+  transition: 0.2s ease-in-out;
 }
 
 @media screen and (max-width: 900px) {

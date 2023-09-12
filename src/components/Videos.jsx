@@ -1,24 +1,34 @@
-import { Stack } from '@mui/material'
-import { Box } from '@mui/system'
-import React from 'react'
-import { ChannelCard, VideoCard, Loader } from '.'
+import { Stack } from '@mui/material';
+import { Box } from '@mui/system';
+import React from 'react';
+import { ChannelCard, VideoCard, Loader } from '.';
+import { useTheme } from '../context/Theme';
 
 const Videos = ({ videos, direction }) => {
-    if(!videos?.length) return <Loader />;
+  const { theme, toggleTheme } = useTheme(); // Always call useTheme unconditionally
 
-    return (
-        <div>
-            <Stack direction={direction || 'row'} flexWrap='wrap' justifyContent='start'>
-                {videos.map((item, index) =>
-                    (
-                        <Box key={index}>
-                          {item.id.videoId && <VideoCard video={item}/>}
-                          {item.id.channelId && <ChannelCard channelDetail={item}/>}  
-                        </Box>
-                    ))}
-            </Stack>
-        </div>
-    )
-}
+  if (!videos?.length) return <Loader />;
 
-export default Videos
+  const containerStyle = {
+    background: theme === 'light' ? 'white' : 'black',
+  };
+
+  return (
+    <div style={containerStyle}>
+      <Stack
+        direction={direction || 'row'}
+        flexWrap='wrap'
+        justifyContent='start'
+      >
+        {videos.map((item, index) => (
+          <Box key={index}>
+            {item.id.videoId && <VideoCard video={item} />}
+            {item.id.channelId && <ChannelCard channelDetail={item} />}
+          </Box>
+        ))}
+      </Stack>
+    </div>
+  );
+};
+
+export default Videos;
